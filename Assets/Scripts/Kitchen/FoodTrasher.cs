@@ -21,14 +21,20 @@ namespace CookingPrototype.Kitchen {
 		/// </summary>
 		[UsedImplicitly]
 		public void TryTrashFood() {
-			var food = _place.CurFood;
-			if ( food == null ) {
-				return;
-			}
+			float timeBtwTime = 0.5f;
+			if( Time.realtimeSinceStartup - _timer < timeBtwTime ) {
+				var food = _place.CurFood;
+				if ( food == null ) {
+					return;
+				}
 
-			if( food.CurStatus == Food.FoodStatus.Overcooked ) {
-				_place.FreePlace();
-			}			
+				if ( food.CurStatus == Food.FoodStatus.Overcooked ) {
+					_place.FreePlace();
+				}
+			}
+			else {
+				_timer = Time.realtimeSinceStartup;
+			}
 		}
 	}
 }
